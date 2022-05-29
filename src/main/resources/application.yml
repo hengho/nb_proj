@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://ssal.sparcs.org:33306/db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
@@ -9,5 +9,5 @@ spring:
     show-sql: true
 
 server:
-  address: localhost
-  port: 8080
+  address: http://ssal.sparcs.org
+  port: 88080
