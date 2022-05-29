@@ -9,6 +9,6 @@ spring:
     database: mysql
     show-sql: true
 
-server:
-  address: localhost
-  port: 38080
+#server:
+#  address: localhost
+#  port: 8080
