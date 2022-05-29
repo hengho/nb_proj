@@ -11,4 +11,4 @@ spring:
 
 server:
   address: localhost
-  port: 8080
+  port: 38080
