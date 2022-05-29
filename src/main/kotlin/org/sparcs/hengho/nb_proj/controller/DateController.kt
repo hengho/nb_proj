@@ -1,16 +1,18 @@
 package org.sparcs.hengho.nb_proj.controller
 
 import org.sparcs.hengho.nb_proj.entity.DateEntity
+import org.sparcs.hengho.nb_proj.repository.DateCustomRepository
 import org.sparcs.hengho.nb_proj.repository.DateRepository
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-//@CrossOrigin(origins = ["http://localhost:3000"])
+@CrossOrigin(origins = ["http://localhost:3000"])
 @RestController
-@RequestMapping("/calendars")
+@RequestMapping("/dates")
 class DateController(
-    val dateRepository: DateRepository
+    val dateRepository: DateRepository,
+    val dateCustomRepository: DateCustomRepository
 ) {
     @GetMapping("")
     fun getDate(): ResponseEntity<List<DateEntity>> {
@@ -25,11 +27,30 @@ class DateController(
         return ResponseEntity.ok(dates)
     }
 
+    @GetMapping("/month/{dateId}")
+    fun getMonthlyDateByDateId(@PathVariable dateId: Long): Long {
+        val dates = dateCustomRepository.findMonthlyByDateId(dateId)
+
+        var sum = 0L
+        dates.map { if(it.num != null) {
+            if(it.state == true) sum += it.num!!
+            else sum -= it.num!!
+        } }
+        return sum
+    }
+
     @PostMapping("")
     fun createCalendar(@RequestBody dateEntity: DateEntity): ResponseEntity<DateEntity> {
-        val res = dateRepository.save(dateEntity)
-
-        return ResponseEntity.ok(res)
+        val date = dateRepository.save(
+            DateEntity(
+                dateEntity.id,
+                dateEntity.dateId,
+                dateEntity.state,
+                dateEntity.num,
+                dateEntity.title
+            )
+        )
+        return ResponseEntity.ok(date)
     }
 
     @PutMapping("/{id}")

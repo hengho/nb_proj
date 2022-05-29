@@ -8,6 +8,10 @@ const get = dateId => {
     return http.get(`/dates/${dateId}`);
 };
 
+const getMonthly = dateId => {
+    return http.get(`dates/month/${dateId}`)
+}
+
 const create = date => {
     return http.post("/dates", date);
 };
@@ -23,6 +27,7 @@ const remove = id => {
 export default {
     getAll,
     get,
+    getMonthly,
     create,
     update,
     remove

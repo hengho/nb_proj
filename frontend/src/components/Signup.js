@@ -1,5 +1,4 @@
 import styled from "styled-components"
-import {Link} from "react-router-dom"
 import {useState} from "react";
 import UserService from "../services/UserService";
 
@@ -47,47 +46,52 @@ const LoginButton = styled.button`
 
 export default () => {
     const initInfo = {
+        id: 0,
         userId: "",
         userPassword: ""
     }
-    const [info, setInfo] = useState(initInfo);
+    const [info, setInfo] = useState(initInfo)
+
     const onChange = e => {
         const {name, value} = e.target;
         setInfo({...info, [name]: value});
     }
+
     const submit = e => {
         UserService.get(info.userId)
             .then(response => {
-                if (response.data.length > 0) {
-                    if (response.data[0].userPassword === info.userPassword) {
-                        window.location.replace("/main")
-                    } else {
-                        alert('존재하지 않는 아이디이거나 비밀번호가 틀렸습니다.');
-                    }
+                if(response.data.length === 0) {
+                    UserService.create({
+                        userId: info.userId,
+                        userPassword: info.userPassword
+                    }).then(response => {
+                        })
+                        .catch(e => {
+                            console.log(e)
+                        })
+                    alert("회원가입이 완료되었습니다.")
+                    window.location.replace("/")
                 } else {
-                    alert('존재하지 않는 아이디입니다.');
+                    alert("이미 존재하는 id 입니다.")
                 }
             })
+            .catch(e => {
+                console.log(e);
+            });
     }
 
     return (
         <LoginStyle>
             <LoginText>
-                로그인
+                회원가입
             </LoginText>
             <Form>
                 <LoginInput placeholder="id를 입력하세요" onChange={onChange} value={info.userId} name='userId' id='userId'/>
-                <LoginInput placeholder="password를 입력하세요" onChange={onChange} value={info.userPassword}
-                            name='userPassword' id='userPassword'/>
+                <LoginInput placeholder="password를 입력하세요" onChange={onChange} value={info.userPassword} name='userPassword' id='userPassword'/>
                 <Div>
-                    <LoginButton type='submit' onClick={submit}>
-                        로그인
+                    <LoginButton type='submit' value={info.id} onClick={submit}>
+                        회원가입
                     </LoginButton>
-                    <Link to="/signup">
-                        <LoginButton>
-                            회원가입
-                        </LoginButton>
-                    </Link>
                 </Div>
             </Form>
         </LoginStyle>
