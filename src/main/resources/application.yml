@@ -9,5 +9,5 @@ spring:
     show-sql: true
 
 server:
-  address: http://ssal.sparcs.org
+  address: ssal.sparcs.org
   port: 88080
