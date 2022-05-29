@@ -15,7 +15,7 @@ const Form = styled.form`
 `
 
 const Div = styled.div`
-    display: flex;
+    display: flex;                          
     flex-direction: row;
     justify-content: center;
 `

@@ -5,7 +5,7 @@ import org.sparcs.hengho.nb_proj.repository.UserRepository
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
-@CrossOrigin(origins = ["http://localhost:3000"])
+@CrossOrigin(origins = ["http://ssal.sparcs.org:33000"])
 @RestController
 @RequestMapping("/users")
 class UserController(

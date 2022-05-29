@@ -5,6 +5,13 @@ import Select from 'react-select'
 import './Calendar.css'
 import DateService from "../services/DateService";
 
+const Title = styled.div`
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 30px;
+    font-weight: bold;       
+`
+
 const Table = styled.table`
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
@@ -165,6 +172,9 @@ export default () => {
 
     return (
         <>
+            <Title>
+                가계부 프로그램
+            </Title>
             <Calendar onChange={value => {
                 setValue(value)
                 changeDateId(value)
